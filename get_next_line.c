@@ -6,12 +6,11 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:06:27 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/21 15:21:32 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/21 16:20:24 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*fill_line(char *str, char **line)
 {
@@ -36,7 +35,7 @@ int		get_next_line(int fd, char **line)
 	char		buffer[BUFFER_SIZE + 1];
 
 	ret = 1;
-	if (fd == 0 || !line || BUFFER_SIZE < 1)
+	if (fd <= 0 || !line || BUFFER_SIZE < 1)
 		return (-1);
 	while (!ft_strchr(str, '\n') && ret > 0)
 	{
