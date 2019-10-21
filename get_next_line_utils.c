@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:28:54 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/21 11:05:46 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/21 13:45:34 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,6 @@ void	ft_bzero(void *str, size_t n)
 		temp[i] = '\0';
 		i++;
 	}
-}
-
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	unsigned char *temp_dst;
-	unsigned char *temp_src;
-
-	temp_dst = (unsigned char *)dst;
-	temp_src = (unsigned char *)src;
-	if (temp_dst == temp_src || n == 0)
-		return (temp_dst);
-	while (n > 0)
-	{
-		*temp_dst++ = *temp_src++;
-		n--;
-	}
-	return (dst);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -87,27 +70,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	while (i < len && s[start])
 		str[i++] = s[start++];
 	return (str);
-}
-
-char	*ft_strdup(const char *src)
-{
-	char	*dest;
-	int		i;
-	int		len;
-
-	i = 0;
-	len = 0;
-	while (src[len])
-		len++;
-	if (!(dest = malloc(sizeof(*dest) * (len + 1))))
-		return (NULL);
-	while (i < len)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
 }
 
 char	*ft_strchr(const char *str, int c)
