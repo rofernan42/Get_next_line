@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:28:54 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/17 10:11:06 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/21 11:05:46 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,18 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void	*ft_memchr(const void *str, int c, size_t n)
+void	ft_bzero(void *str, size_t n)
 {
-	size_t			i;
-	unsigned char	*temp;
+	size_t	i;
+	char	*temp;
 
 	i = 0;
-	temp = (unsigned char *)str;
+	temp = (char *)str;
 	while (i < n)
 	{
-		if (temp[i] == (unsigned char)c)
-			return ((unsigned char *)&str[i]);
+		temp[i] = '\0';
 		i++;
 	}
-	return (0);
 }
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
@@ -73,4 +71,58 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		dest[i++] = s2[j++];
 	dest[i] = '\0';
 	return (dest);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	char	*str;
+
+	i = 0;
+	if (!s || !(str = malloc(sizeof(*str) * (len + 1))))
+		return (NULL);
+	ft_bzero(str, len + 1);
+	if (start >= ft_strlen(s))
+		return (str);
+	while (i < len && s[start])
+		str[i++] = s[start++];
+	return (str);
+}
+
+char	*ft_strdup(const char *src)
+{
+	char	*dest;
+	int		i;
+	int		len;
+
+	i = 0;
+	len = 0;
+	while (src[len])
+		len++;
+	if (!(dest = malloc(sizeof(*dest) * (len + 1))))
+		return (NULL);
+	while (i < len)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_strchr(const char *str, int c)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return ((char *)&str[i]);
+		else
+			i++;
+	}
+	if (c == 0)
+		return ((char *)&str[i]);
+	return (0);
 }
