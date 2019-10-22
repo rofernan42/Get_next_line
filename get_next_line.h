@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:07:39 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/21 15:33:57 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/22 10:26:13 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_bzero(void *str, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *str, int c);
+char	*ft_strdup(const char *src);
+char	*fill_line(char *str, char **line);
 int		get_next_line(int fd, char **line);
 
 #endif

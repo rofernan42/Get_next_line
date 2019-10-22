@@ -6,11 +6,32 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:06:27 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/21 16:20:24 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/22 10:06:01 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*ft_strdup(const char *src)
+{
+	char	*dest;
+	int		i;
+	int		len;
+
+	i = 0;
+	len = 0;
+	while (src[len])
+		len++;
+	if (!(dest = malloc(sizeof(*dest) * (len + 1))))
+		return (NULL);
+	while (i < len)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
 
 char	*fill_line(char *str, char **line)
 {
@@ -53,6 +74,6 @@ int		get_next_line(int fd, char **line)
 	if ((str = fill_line(str, line)))
 		return (1);
 	free(str);
-	str = "\0";
+	str = ft_strdup("");
 	return (0);
 }
