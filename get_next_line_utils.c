@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:28:54 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/21 13:45:34 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/23 12:38:40 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void	ft_bzero(void *str, size_t n)
-{
-	size_t	i;
-	char	*temp;
-
-	i = 0;
-	temp = (char *)str;
-	while (i < n)
-	{
-		temp[i] = '\0';
-		i++;
-	}
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_free(char const *s1, char const *s2, int par)
 {
 	int		i;
 	int		j;
@@ -53,6 +39,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[j])
 		dest[i++] = s2[j++];
 	dest[i] = '\0';
+	if (par == 0)
+		free((char *)s2);
+	if (par == 1)
+		free((char *)s1);
+	if (par == 2)
+	{
+		free((char *)s1);
+		free((char *)s2);
+	}
 	return (dest);
 }
 
@@ -64,9 +59,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s || !(str = malloc(sizeof(*str) * (len + 1))))
 		return (NULL);
-	ft_bzero(str, len + 1);
+	while (i < len + 1)
+	{
+		str[i] = '\0';
+		i++;
+	}
 	if (start >= ft_strlen(s))
 		return (str);
+	i = 0;
 	while (i < len && s[start])
 		str[i++] = s[start++];
 	return (str);
