@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:28:54 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/23 12:38:40 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:09:28 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,27 @@ size_t	ft_strlen(const char *str)
 	while (str[i])
 		i++;
 	return (i);
+}
+
+char	*ft_strdup(const char *src)
+{
+	char	*dest;
+	int		i;
+	int		len;
+
+	i = 0;
+	len = 0;
+	while (src[len])
+		len++;
+	if (!(dest = malloc(sizeof(*dest) * (len + 1))))
+		return (NULL);
+	while (i < len)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
 
 char	*ft_strjoin_free(char const *s1, char const *s2, int par)
