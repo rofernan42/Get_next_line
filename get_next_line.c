@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:06:27 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/24 10:49:26 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/24 11:59:07 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,31 @@ char	*fill_line(char *str, char **line)
 	return (str);
 }
 
+int		read_line(int fd, char **str)
+{
+	char	buffer[BUFFER_SIZE + 1];
+	char	*tmp;
+	int		ret;
+
+	if (str[fd])
+		tmp = ft_strdup(str[fd]);
+	if (*str[fd])
+		free(str[fd]);
+	str[fd] = ft_strdup("");
+	if ((ret = read(fd, buffer, BUFFER_SIZE)) > 0)
+	{
+		buffer[ret] = '\0';
+		if (!(str[fd] = ft_strjoin_free(str[fd], buffer, 1)))
+			return (-1);
+	}
+	str[fd] = ft_strjoin_free(tmp, str[fd], 2);
+	return (ret);
+}
+
 int		get_next_line(int fd, char **line)
 {
 	int			ret;
 	static char	*str[1024];
-	char		buffer[BUFFER_SIZE + 1];
-	char		*tmp;
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1)
 		return (-1);
@@ -56,20 +75,9 @@ int		get_next_line(int fd, char **line)
 		str[fd] = ft_strdup("");
 	while (!ft_strchr(str[fd], '\n'))
 	{
-		if (str[fd])
-			tmp = ft_strdup(str[fd]);
-		if (*str[fd])
-			free(str[fd]);
-		str[fd] = ft_strdup("");
-		if ((ret = read(fd, buffer, BUFFER_SIZE)) > 0)
-		{
-			buffer[ret] = '\0';
-			if (!(str[fd] = ft_strjoin_free(str[fd], buffer, 1)))
-				return (-1);
-		}
-		if (ret == 0 && !*str[fd] && !*tmp)
+		ret = read_line(fd, str);
+		if (ret == 0 && !*str[fd])
 			return (0);
-		str[fd] = ft_strjoin_free(tmp, str[fd], 2);
 		if (ret == 0 && *str[fd])
 		{
 			*line = str[fd];
