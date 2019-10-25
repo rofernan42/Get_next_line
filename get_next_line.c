@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:06:27 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/25 17:20:37 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/25 17:25:26 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	read_line(int fd, char **str)
 	return (ret);
 }
 
-int		get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
 	int			ret;
 	static char	*str[1024];
