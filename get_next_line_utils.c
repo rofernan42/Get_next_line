@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:28:54 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/23 16:09:28 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/25 10:49:42 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,20 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*str;
 
 	i = 0;
-	if (!s || !(str = malloc(sizeof(*str) * (len + 1))))
+	if (!s)
 		return (NULL);
-	while (i < len + 1)
+	if (start > (unsigned int)ft_strlen(s))
 	{
-		str[i] = '\0';
-		i++;
-	}
-	if (start >= ft_strlen(s))
+		if (!(str = malloc(sizeof(char) * 1)))
+			return (NULL);
+		str[0] = '\0';
 		return (str);
-	i = 0;
+	}
+	if (!(str = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
 	while (i < len && s[start])
 		str[i++] = s[start++];
+	str[i] = '\0';
 	return (str);
 }
 
