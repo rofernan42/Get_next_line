@@ -6,13 +6,13 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:06:27 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/25 11:45:13 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/25 17:20:37 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*fill_line(char **str, char **line, int fd)
+static char	*fill_line(char **str, char **line, int fd)
 {
 	int		i;
 	char	*tmp;
@@ -32,7 +32,7 @@ char	*fill_line(char **str, char **line, int fd)
 	return (str[fd]);
 }
 
-int		read_line(int fd, char **str)
+static int	read_line(int fd, char **str)
 {
 	char	buffer[BUFFER_SIZE + 1];
 	char	*tmp;
@@ -42,8 +42,8 @@ int		read_line(int fd, char **str)
 	{
 		tmp = ft_strdup(str[fd]);
 		free(str[fd]);
+		str[fd] = ft_strdup("");
 	}
-	str[fd] = ft_strdup("");
 	if ((ret = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
 		buffer[ret] = '\0';
@@ -66,13 +66,13 @@ int		get_next_line(int fd, char **line)
 	while (!ft_strchr(str[fd], '\n'))
 	{
 		ret = read_line(fd, str);
-		if (ret == 0 && !*str[fd])
-			return (0);
-		if (ret == 0 && *str[fd])
+		// if (ret == 0 && !*str[fd])
+		// 	return (0);
+		if (ret == 0 && (*str[fd] || !*str[fd]))
 		{
 			*line = str[fd];
 			str[fd] = ft_strdup("");
-			return (1);
+			return (0);
 		}
 		if (ret < 0)
 			return (-1);
