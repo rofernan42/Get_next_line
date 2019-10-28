@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:06:27 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/28 12:37:46 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/28 14:10:43 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 static char	*fill_line(char **str, char **line, int fd)
 {
@@ -62,7 +62,8 @@ int			get_next_line(int fd, char **line)
 	if (fd < 0 || !line || BUFFER_SIZE < 1)
 		return (-1);
 	if (!str[fd])
-		str[fd] = ft_strdup("");
+		if (!(str[fd] = ft_strdup("")))
+			return (-1);
 	while (!ft_strchr(str[fd], '\n'))
 	{
 		ret = read_line(fd, str);
