@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:06:27 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/28 14:10:43 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/10/30 12:54:45 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-static char	*fill_line(char **str, char **line, int fd)
+static void	ft_strdel(char **str)
+{
+	if (!str)
+		return ;
+	free(*str);
+	*str = NULL;
+}
+
+static int	fill_line(char **str, char **line, int fd)
 {
 	int		i;
 	char	*tmp;
@@ -21,7 +29,7 @@ static char	*fill_line(char **str, char **line, int fd)
 	while (str[fd][i] && str[fd][i] != '\n')
 		i++;
 	if (!(*line = ft_substr(str[fd], 0, i)))
-		return (0);
+		return (-1);
 	if (ft_strchr(str[fd], '\n'))
 	{
 		if (!(tmp = ft_strdup(&str[fd][i + 1])))
@@ -29,7 +37,7 @@ static char	*fill_line(char **str, char **line, int fd)
 		free(str[fd]);
 		str[fd] = tmp;
 	}
-	return (str[fd]);
+	return (1);
 }
 
 static int	read_line(int fd, char **str)
@@ -61,6 +69,7 @@ int			get_next_line(int fd, char **line)
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1)
 		return (-1);
+	*line = NULL;
 	if (!str[fd])
 		if (!(str[fd] = ft_strdup("")))
 			return (-1);
@@ -69,13 +78,15 @@ int			get_next_line(int fd, char **line)
 		ret = read_line(fd, str);
 		if (ret == 0 && (*str[fd] || !*str[fd]))
 		{
-			*line = str[fd];
-			str[fd] = ft_strdup("");
+			*line = ft_strdup(str[fd]);
+			ft_strdel(&str[fd]);
 			return (0);
 		}
 		if (ret < 0)
+		{
+			ft_strdel(&str[fd]);
 			return (-1);
+		}
 	}
-	fill_line(str, line, fd);
-	return (1);
+	return (fill_line(str, line, fd));
 }
