@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:06:27 by rofernan          #+#    #+#             */
-/*   Updated: 2019/11/25 15:34:30 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:00:24 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ int			get_next_line(int fd, char **line)
 		return (-1);
 	*line = NULL;
 	if (!str[fd])
-	{
 		if (!(str[fd] = ft_strdup("")))
 			return (-1);
-	}
 	while (!ft_strchr(str[fd], '\n'))
 	{
 		ret = read_line(fd, str);
