@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:06:27 by rofernan          #+#    #+#             */
-/*   Updated: 2019/11/02 14:28:36 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/11/25 15:34:30 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,14 @@ static int	fill_line(char **str, char **line, int fd)
 static int	read_line(int fd, char **str)
 {
 	char	buffer[BUFFER_SIZE + 1];
-	char	*tmp;
 	int		ret;
 
-	if (str[fd])
-	{
-		tmp = ft_strdup(str[fd]);
-		free(str[fd]);
-		str[fd] = ft_strdup("");
-	}
 	if ((ret = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
 		buffer[ret] = '\0';
 		if (!(str[fd] = ft_strjoin_free(str[fd], buffer, 1)))
 			return (-1);
 	}
-	str[fd] = ft_strjoin_free(tmp, str[fd], 2);
 	return (ret);
 }
 
@@ -71,8 +63,10 @@ int			get_next_line(int fd, char **line)
 		return (-1);
 	*line = NULL;
 	if (!str[fd])
+	{
 		if (!(str[fd] = ft_strdup("")))
 			return (-1);
+	}
 	while (!ft_strchr(str[fd], '\n'))
 	{
 		ret = read_line(fd, str);
