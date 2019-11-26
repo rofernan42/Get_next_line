@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:06:27 by rofernan          #+#    #+#             */
-/*   Updated: 2019/11/25 16:00:24 by rofernan         ###   ########.fr       */
+/*   Updated: 2019/11/26 12:39:08 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	fill_line(char **str, char **line, int fd)
 	if (ft_strchr(str[fd], '\n'))
 	{
 		if (!(tmp = ft_strdup(&str[fd][i + 1])))
-			return (0);
+			return (-1);
 		free(str[fd]);
 		str[fd] = tmp;
 	}
