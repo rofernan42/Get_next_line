@@ -18,5 +18,5 @@ gcc -Wall -Wextra -Werror -D BUFFER_SIZE=## get_next_line.c get_next_line_utils.
 ```
 * If no argument: standard input
 * If 1 argument: use single fd
-* If 2 arguments: use 2 fd.
-* Possibility to use more arguments for multi fd tests.
+* If 2 arguments: use 2 fd
+* Possibility to use more arguments for multi fd tests
