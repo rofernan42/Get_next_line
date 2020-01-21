@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:07:39 by rofernan          #+#    #+#             */
-/*   Updated: 2019/10/25 14:41:40 by rofernan         ###   ########.fr       */
+/*   Updated: 2020/01/21 10:52:03 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <strings.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 256
+# endif
 
 size_t	ft_strlen(const char *str);
 char	*ft_strjoin_free(char const *s1, char const *s2, int par);
