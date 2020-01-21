@@ -6,7 +6,7 @@
 /*   By: rofernan <rofernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 13:42:49 by rofernan          #+#    #+#             */
-/*   Updated: 2020/01/21 10:56:53 by rofernan         ###   ########.fr       */
+/*   Updated: 2020/01/21 11:21:46 by rofernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		main(int argc, char **argv)
 
 		close(fd);
 	}
-	else if (argc == 3)
+	else if (argc >= 3)
 	{
 		fd1 = open(argv[1], O_RDONLY);
 		fd2 = open(argv[2], O_RDONLY);
